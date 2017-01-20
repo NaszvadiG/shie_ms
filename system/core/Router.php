@@ -210,7 +210,7 @@ class CI_Router {
 				$this->uri->rsegments = array(
 					1 => $this->class,
 					2 => $this->method
-				);
+					);
 			}
 			else
 			{
@@ -293,21 +293,23 @@ class CI_Router {
 		{
 			show_error('Unable to determine what should be displayed. A default route has not been specified in the routing file.');
 		}
+		//--------------------- add code 20170120 ------------------------
 		//TODO　デフォルトコントローラーの値を/で分割して１個目がコントローラー直下にない＆ディレクトリ名としてある場合は
 		//１個目を$this->directoryにいれて、default_controllerは2個目移行を保存するようなプログラムを書く。
-		//１個目を$this->directoryにいれて、default_controllerは2個目移行を保存するようなプログラムを書く。
 		//例は151行目あたりがそれっぽい。
-		
-
+		$segments = explode('/',$this->default_controller);
+		if ( ! file_exists(APPPATH.'controllers/'.$segments[0].'.php')
+			&& is_dir(APPPATH.'controllers/'.$this->directory.$segments[0])
+			){
+			$this->set_directory(array_shift($segments), TRUE);
+			$this->default_controller = implode('/',$segments);
+		}
+		//--------------------- end code ------------------------
 		// Is the method being specified?
 		if (sscanf($this->default_controller, '%[^/]/%s', $class, $method) !== 2)
 		{
 			$method = 'index';
 		}
-		// editStart 170119 shie
-		// デフォルトコントローラーがディレクトリに対応していない為、無理やりfrontフォルダ内だという事にした。
-		$this->directory = 'front/';
-		// editEnt 170119 shie
 		if ( ! file_exists(APPPATH.'controllers/'.$this->directory.ucfirst($class).'.php'))
 		{
 			// This will trigger 404 later
@@ -321,7 +323,7 @@ class CI_Router {
 		$this->uri->rsegments = array(
 			1 => $class,
 			2 => $method
-		);
+			);
 
 		log_message('debug', 'No URI present. Default controller set.');
 	}
@@ -347,12 +349,12 @@ class CI_Router {
 		while ($c-- > 0)
 		{
 			$test = $this->directory
-				.ucfirst($this->translate_uri_dashes === TRUE ? str_replace('-', '_', $segments[0]) : $segments[0]);
+			.ucfirst($this->translate_uri_dashes === TRUE ? str_replace('-', '_', $segments[0]) : $segments[0]);
 
 			if ( ! file_exists(APPPATH.'controllers/'.$test.'.php')
 				&& $directory_override === FALSE
 				&& is_dir(APPPATH.'controllers/'.$this->directory.$segments[0])
-			)
+				)
 			{
 				$this->set_directory(array_shift($segments), TRUE);
 				continue;

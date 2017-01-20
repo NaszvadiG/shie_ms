@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class_alias('Cartalyst\Sentry\Facades\CI\Sentry', 'Sentry');
 class Welcome extends CI_Controller {
 
 	/**
