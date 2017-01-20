@@ -296,6 +296,7 @@ class CI_Router {
 		//TODO　デフォルトコントローラーの値を/で分割して１個目がコントローラー直下にない＆ディレクトリ名としてある場合は
 		//１個目を$this->directoryにいれて、default_controllerは2個目移行を保存するようなプログラムを書く。
 		//例は151行目あたりがそれっぽい。
+		//例は151行目あたりがそれっぽい。
 		
 
 		// Is the method being specified?
