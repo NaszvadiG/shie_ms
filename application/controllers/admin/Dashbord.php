@@ -2,15 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dashbord extends AdminController {
+	var $name = 'Dashbord';
 
-
-	function __construct()
-	{
+	function __construct(){
 		parent::__construct();
-		// something
 	}
 
+	/**
+	 * ダッシュボードの表示
+	 */
 	function index(){
-		die('dashbord_index');
+		$this->_render('index');
 	}
 }
