@@ -18,5 +18,6 @@ class AdminController extends MY_Controller {
 		if (!$this->ion_auth->logged_in()){
 			redirect('admin/auth/login', 'refresh');
 		}
+
 	}
 }

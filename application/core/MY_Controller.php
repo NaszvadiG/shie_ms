@@ -15,6 +15,8 @@ class MY_Controller extends CI_Controller {
 	{
 		parent::__construct();
 		// something
+		//Urlライブラリにshowタイプとコントローラーとメソッド情報を送る。
+		$this->url->setRouterVal($this->showType,$this->router->fetch_class(),$this->router->fetch_method());
 	}
 
 

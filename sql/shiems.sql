@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017 年 1 朁E20 日 07:57
+-- Generation Time: 2017 年 1 朁E30 日 13:22
 -- サーバのバージョン： 10.1.16-MariaDB
 -- PHP Version: 5.5.38
 
@@ -19,6 +19,21 @@ SET time_zone = "+00:00";
 --
 -- Database: `shiems`
 --
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `categorys`
+--
+
+CREATE TABLE `categorys` (
+  `id` int(11) NOT NULL,
+  `post_type_id` int(11) NOT NULL,
+  `category_slug` varchar(20) NOT NULL,
+  `category_show` varchar(100) NOT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `del_flg` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -57,6 +72,70 @@ CREATE TABLE `login_attempts` (
 -- --------------------------------------------------------
 
 --
+-- テーブルの構造 `posts`
+--
+
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL,
+  `post_type_id` int(11) NOT NULL,
+  `title` text NOT NULL,
+  `content` text NOT NULL,
+  `state` varchar(10) NOT NULL DEFAULT 'draft' COMMENT 'public=>公開　draft=>下書き　private =>非公開　trash=>ゴミ箱',
+  `update_id` int(11) NOT NULL,
+  `create_id` int(11) NOT NULL,
+  `create_datetime` datetime NOT NULL,
+  `del_flg` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `post_categorys`
+--
+
+CREATE TABLE `post_categorys` (
+  `post_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `post_metas`
+--
+
+CREATE TABLE `post_metas` (
+  `id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `meta_title` text NOT NULL,
+  `meta_val` text NOT NULL,
+  `del_flg` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `post_types`
+--
+
+CREATE TABLE `post_types` (
+  `id` int(11) NOT NULL,
+  `type_name` varchar(100) NOT NULL,
+  `type_name_show` varchar(100) NOT NULL,
+  `categry_flg` int(11) NOT NULL DEFAULT '0',
+  `del_flg` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- テーブルのデータのダンプ `post_types`
+--
+
+INSERT INTO `post_types` (`id`, `type_name`, `type_name_show`, `categry_flg`, `del_flg`) VALUES
+(1, 'blog', 'ブログ', 1, 0);
+
+-- --------------------------------------------------------
+
+--
 -- テーブルの構造 `users`
 --
 
@@ -85,7 +164,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1484814596, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1485772030, 1, 'Admin', 'istrator', 'ADMIN', '0'),
 (2, '::1', 'shiimoto@allora-inc.jp', '$2y$08$53PDzOsIPnZRoKjYFZ1kR.yooFQzak4a5JvIwNn51Py5CsNjFgro.', NULL, 'shiimoto@allora-inc.jp', NULL, NULL, NULL, NULL, 1484815962, NULL, 1, 'a', 'a', 'a', '668860007');
 
 -- --------------------------------------------------------
@@ -114,6 +193,12 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 --
 
 --
+-- Indexes for table `categorys`
+--
+ALTER TABLE `categorys`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `groups`
 --
 ALTER TABLE `groups`
@@ -123,6 +208,30 @@ ALTER TABLE `groups`
 -- Indexes for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `post_categorys`
+--
+ALTER TABLE `post_categorys`
+  ADD PRIMARY KEY (`post_id`,`category_id`);
+
+--
+-- Indexes for table `post_metas`
+--
+ALTER TABLE `post_metas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `post_types`
+--
+ALTER TABLE `post_types`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -145,6 +254,11 @@ ALTER TABLE `users_groups`
 --
 
 --
+-- AUTO_INCREMENT for table `categorys`
+--
+ALTER TABLE `categorys`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
@@ -154,6 +268,21 @@ ALTER TABLE `groups`
 --
 ALTER TABLE `login_attempts`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `post_metas`
+--
+ALTER TABLE `post_metas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `post_types`
+--
+ALTER TABLE `post_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
 --
