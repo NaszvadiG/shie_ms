@@ -1,4 +1,4 @@
-<?php $this->feach->css(); ?>
+<?php $this->html->css(); ?>
 記事一覧画面
 <div>
 	<a href="<?php  print $this->url->controller_url('create'); ?>">新規作成</a>
@@ -42,7 +42,7 @@
 			</td>
 			<td class="other_td">
 				投稿者：<a href="<?php  print $this->url->method_url('create_id/'.$row['create_id']); ?>">あああ</a><br>
-				投稿日時：<?php print $row['create_datetime'] ?>'); ?><br>
+				投稿日時：<?php print $row['create_datetime'] ?><br>
 				投稿状況：<a href="<?php  print $this->url->method_url('state/public'); ?>">公開</a>
 			</td>
 		</tr>
@@ -51,7 +51,7 @@
 	<div class="pageing_block" targ="<?php  print $this->url->method_url('page/<num>');?>"></div>
 </div>
 
-<?php $this->feach->js(); ?>
+<?php $this->html->js(); ?>
 <script>
 	$(function() {
 		/**
