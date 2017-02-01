@@ -10,6 +10,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class AdminController extends MY_Controller {
 	var $showType = 'admin';	//views内のフォルダを指定する。
 	var $name = '';
+	var $js_admin = array();
+	var $css_admin = array();
+
 	function __construct()
 	{
 		parent::__construct();

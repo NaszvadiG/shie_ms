@@ -1,3 +1,4 @@
+<?php $this->feach->css(); ?>
 記事一覧画面
 <div>
 	<a href="<?php  print $this->url->controller_url('create'); ?>">新規作成</a>
@@ -12,32 +13,59 @@
 			<th class="cate_td">カテゴリ</th>
 			<th class="other_td">情報</th>
 		</tr>
+		<?php //var_dump($this->BlogModel->post); ?>
+		<?php foreach($this->BlogModel->post as $row){ ?>
+		<?php $id = $row['id'] ?>
 		<tr>
 			<td class="check_td"><input type="checkbox"></td>
 			<td class="title_td">
 				<p class="title_str">
+					<?php if(isset($this->data['condition']['state']) AND $this->data['condition']['state'] == 'trash'){ ?>
 					ゴミ箱　:　記事タイトル
-					<a href="<?php  print $this->url->controller_url('edit/1'); ?>">記事タイトル</a>
+					<?php }else{ ?>
+					<a href="<?php  print $this->url->controller_url('edit/'.$id); ?>"><?php print $row['title']; ?></a>
+					<?php } ?>
 				</p>
 				<div class="post_edit_bt_bloc">
-					<span class="post_edit_bt"><a href="<?php  print $this->url->controller_url('edit/1'); ?>">編集</a></span>
-					<span class="post_edit_bt"><a href="<?php  print $this->url->controller_url('trash/1'); ?>">ゴミ箱に入れる</a></span>
-					<span class="post_edit_bt"><a href="<?php  print $this->url->controller_url('delete/2'); ?>">削除</a></span>
+					<span class="post_edit_bt"><a href="<?php  print $this->url->controller_url('edit/'.$id); ?>">編集</a></span>
+					<?php if(isset($this->data['condition']['state']) AND $this->data['condition']['state'] == 'trash'){ ?>
+					<span class="post_edit_bt"><a href="<?php  print $this->url->controller_url('trash/'.$id); ?>">ゴミ箱に入れる</a></span>
+					<?php }else{ ?>
+					<span class="post_edit_bt"><a href="<?php  print $this->url->controller_url('delete/'.$id); ?>">削除</a></span>
+					<?php } ?>
 				</div>
 			</td>
 			<td class="cate_td">
-				<a href="<?php  print $this->url->method_url('category/1'); ?>">カテゴリ</a><br>
-				<a href="">カテゴリ2</a><br>
-				<a href="">カテゴリ3</a>
+				<?php foreach($row['category'] as $cate){ ?>
+				<a href="<?php  print $this->url->method_url('category_id/'.$cate['id']); ?>"><?php print $cate['category_show']; ?></a><br>
+				<?php } ?>
 			</td>
 			<td class="other_td">
-				投稿者：<a href="<?php  print $this->url->method_url('creator/1'); ?>">あああ</a><br>
-				投稿日時：2016-01-11　11：33<br>
-				投稿状況：<a href="<?php  print $this->url->method_url('state/public'); ?>"></a>公開
+				投稿者：<a href="<?php  print $this->url->method_url('create_id/'.$row['create_id']); ?>">あああ</a><br>
+				投稿日時：<?php print $row['create_datetime'] ?>'); ?><br>
+				投稿状況：<a href="<?php  print $this->url->method_url('state/public'); ?>">公開</a>
 			</td>
 		</tr>
+		<?php } ?>
 	</table>
-	<div class="pagint_bt">
-		最初<<a href="<a href="<?php  print $this->url->method_url('page/1'); ?>">1</a>2345>最後
-	</div>
+	<div class="pageing_block" targ="<?php  print $this->url->method_url('page/<num>');?>"></div>
 </div>
+
+<?php $this->feach->js(); ?>
+<script>
+	$(function() {
+		/**
+		 * http://flaviusmatis.github.com/simplePagination.js/
+		 */
+		$('.pageing_block').pagination({
+			items: <?php print $this->BlogModel->itemCount; ?>,
+			itemsOnPage: <?php print $this->BlogModel->pageLimit; ?>,
+			cssStyle: 'light-theme',
+			currentPage :<?php print $this->BlogModel->nowPage; ?>,
+			onPageClick:function(page,e){
+				var targUrl = $('.pageing_block').attr('targ').replace('<num>',page);
+				location.href = targUrl;
+			}
+		});
+	});
+</script>

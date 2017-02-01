@@ -45,6 +45,16 @@ class Url{
 		$this->controller = $controller;
 		$this->method = $method;
 	}
+
+	public function view_url($url){
+		return $this->site_url("web/{$url}");
+	}
+	public function js_url($url){
+		return $this->view_url("{$this->showType}/js/{$url}");
+	}
+	public function css_url($url){
+		return $this->view_url("{$this->showType}/css/{$url}");
+	}
 }
 
- ?>
+?>
