@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class MY_Controller extends CI_Controller {
 	var $data = array();
 	var $showType = 'front';	//views内のフォルダを指定する。
-	var $js_ori =array('jquery');
+	var $js_ori =array();
 	var $css_ori =array();
 	/**
 	 * viewsフォルダ内の
@@ -19,20 +19,8 @@ class MY_Controller extends CI_Controller {
 		// something
 		//Urlライブラリにshowタイプとコントローラーとメソッド情報を送る。
 		$this->url->setRouterVal($this->showType,$this->router->fetch_class(),$this->router->fetch_method());
-		//FeachライブラリにJSの情報を送る。
-		$this->feach->setJs($this->js_ori);
-		$showTypeJsHash = "js_{$this->showType}";
-		$this->feach->setJs($this->$showTypeJsHash);
-		if(isset($this->js)){
-			$this->feach->setJs($this->js);
-		}
-		//FeachライブラリにCssの情報を送る。
-		$this->feach->setCss($this->css_ori);
-		$showTypeCssHash = "css_{$this->showType}";
-		$this->feach->setCss($this->$showTypeCssHash);
-		if(isset($this->css)){
-			$this->feach->setCss($this->css);
-		}
+		//htmlライブラリに情報を送る
+		$this->_setHtmlLibrary();
 	}
 
 
@@ -49,16 +37,31 @@ class MY_Controller extends CI_Controller {
 		$this->load->view($viewFile, $this->data);
 	}
 
-	// public function feachJs(){
-	// 	foreach($this->js as $js){
-	// 		print '<script type="text/javascript" src="'.$this->url->js_url($js).'"></script>';
-	// 	}
-	// 	$showTypeJsHash = "js_{$this->showType}";
-	// 	foreach($this->$showTypeJsHash as $js){
-	// 		print '<script type="text/javascript" src="'.$this->url->js_url($js).'"></script>';
-	// 	}
-	// 	foreach($this->$js as $js){
-	// 		print '<script type="text/javascript" src="'.$this->url->js_url($js).'"></script>';
-	// 	}
-	// }
+	/**
+	 * htmlライブラリに対してコンストラクタで行うメソッドをまとめる。
+	 */
+	private function _setHtmlLibrary(){
+		//htmlライブラリに表示セグメントを送る。
+		$this->html->setShowType($this->showType);
+
+		//FeachライブラリにJSの情報を送る。
+		$this->html->setJs($this->js_ori);
+		$showTypeJsHash = "js_{$this->showType}";
+		if(isset($this->$showTypeJsHash)){
+			$this->html->setJs($this->$showTypeJsHash);
+		}
+		if(isset($this->js)){
+			$this->html->setJs($this->js);
+		}
+		
+		//FeachライブラリにCssの情報を送る。
+		$this->html->setCss($this->css_ori);
+		$showTypeCssHash = "css_{$this->showType}";
+		if(isset($this->$showTypeCssHash)){
+			$this->html->setCss($this->$showTypeCssHash);
+		}
+		if(isset($this->css)){
+			$this->html->setCss($this->css);
+		}
+	}
 }

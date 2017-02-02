@@ -1,0 +1,4 @@
+//フォームの要素と高さを合わせる時の設定
+@mixin form_element_inline_padding() {
+	padding-top: 4px;
+}

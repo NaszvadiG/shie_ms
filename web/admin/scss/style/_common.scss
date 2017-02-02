@@ -1,0 +1,29 @@
+/**************************************************
+コンテンツ部分の設定
+***************************************************/
+#page-wrapper{
+	padding-bottom: $global_padding*4;
+}
+#flashMessage{
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+}
+/**************************************************
+フッタの設定
+***************************************************/
+footer{
+
+	p#footer_copy{
+		padding: $global_padding*2 0;
+		text-align: center;
+		small{
+			color: #888;
+			font-weight: bold;
+		}
+	}
+}
