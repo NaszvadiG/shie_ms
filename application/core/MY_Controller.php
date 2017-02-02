@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class MY_Controller extends CI_Controller {
 	var $data = array();
 	var $showType = 'front';	//views内のフォルダを指定する。
-	var $js_ori =array('jquery');
+	var $js_ori =array();
 	var $css_ori =array();
 	/**
 	 * viewsフォルダ内の
@@ -47,7 +47,9 @@ class MY_Controller extends CI_Controller {
 		//FeachライブラリにJSの情報を送る。
 		$this->html->setJs($this->js_ori);
 		$showTypeJsHash = "js_{$this->showType}";
-		$this->html->setJs($this->$showTypeJsHash);
+		if(isset($this->$showTypeJsHash)){
+			$this->html->setJs($this->$showTypeJsHash);
+		}
 		if(isset($this->js)){
 			$this->html->setJs($this->js);
 		}
@@ -55,7 +57,9 @@ class MY_Controller extends CI_Controller {
 		//FeachライブラリにCssの情報を送る。
 		$this->html->setCss($this->css_ori);
 		$showTypeCssHash = "css_{$this->showType}";
-		$this->html->setCss($this->$showTypeCssHash);
+		if(isset($this->$showTypeCssHash)){
+			$this->html->setCss($this->$showTypeCssHash);
+		}
 		if(isset($this->css)){
 			$this->html->setCss($this->css);
 		}

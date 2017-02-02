@@ -1,0 +1,27 @@
+
+
+$global_min_size:20px;
+$global_background_color:#f8f8f8;
+
+$global_padding: $global_min_size;
+$global_margin:$global_min_size;
+
+
+$global_border_style:1px solid #ddd;
+
+$xs:  "only screen and (max-width:767px)";
+$sm: "only screen and (min-width:768px)";
+$md:  "only screen and (min-width:992px)";
+$lg:  "only screen and (min-width:1200px)";
+@import "compass/css3/";
+
+@import "style/mixin/form";
+
+
+@import "style/common";
+@import "style/message_list";
+@import "style/input_screen";
+
+
+
+@import "style/custom";
