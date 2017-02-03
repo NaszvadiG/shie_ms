@@ -4,8 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Blog extends AdminController {
 	var $name = 'Blog';
 	var $post_type='blog';
-	var $js = array('jquery.simplePagination');
-	var $css = array('simplePagination');
+	var $title = '記事一覧画面';
+	var $js = array('plugin/jquery.simplePagination','blog/index');
+	var $css = array('plugin/simplePagination');
 
 	function __construct(){
 		parent::__construct();

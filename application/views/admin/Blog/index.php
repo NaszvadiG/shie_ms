@@ -1,16 +1,18 @@
-<?php $this->html->css(); ?>
-記事一覧画面
 <div>
 	<a href="<?php  print $this->url->controller_url('create'); ?>">新規作成</a>
-	<a href="<?php  print $this->url->method_url('trash_list'); ?>">ゴミ箱の中身を見る</a>
+	<?php if(isset($this->data['condition']['state']) AND $this->data['condition']['state'] == 'trash'){ ?>
 	<a href="<?php  print $this->url->controller_url('delete_trash'); ?>">ゴミ箱の中身を削除</a>
+	<?php }else{ ?>
+	<a href="<?php  print $this->url->method_url('trash_list'); ?>">ゴミ箱の中身を見る</a>
+	<?php } ?>
 </div>
-<div>
-	<table>
+<div class="col-xs-12">
+	<table id="post_list_table" class="table table-striped">
 		<tr>
 			<th class="check_td"></th>
 			<th class="title_td">記事タイトル</th>
 			<th class="cate_td">カテゴリ</th>
+			<th class="create_td">作成者</th>
 			<th class="other_td">情報</th>
 		</tr>
 		<?php //var_dump($this->BlogModel->post); ?>
@@ -27,11 +29,11 @@
 					<?php } ?>
 				</p>
 				<div class="post_edit_bt_bloc">
-					<span class="post_edit_bt"><a href="<?php  print $this->url->controller_url('edit/'.$id); ?>">編集</a></span>
+					<a href="<?php  print $this->url->controller_url('edit/'.$id); ?>">編集</a>
 					<?php if(isset($this->data['condition']['state']) AND $this->data['condition']['state'] == 'trash'){ ?>
-					<span class="post_edit_bt"><a href="<?php  print $this->url->controller_url('trash/'.$id); ?>">ゴミ箱に入れる</a></span>
+					<a class="text-danger" href="<?php  print $this->url->controller_url('delete/'.$id); ?>">削除</a>
 					<?php }else{ ?>
-					<span class="post_edit_bt"><a href="<?php  print $this->url->controller_url('delete/'.$id); ?>">削除</a></span>
+					<a class="text-danger" href="<?php  print $this->url->controller_url('trash/'.$id); ?>">ゴミ箱に入れる</a>
 					<?php } ?>
 				</div>
 			</td>
@@ -40,8 +42,10 @@
 				<a href="<?php  print $this->url->method_url('category_id/'.$cate['id']); ?>"><?php print $cate['category_show']; ?></a><br>
 				<?php } ?>
 			</td>
-			<td class="other_td">
+			<td class="create_td">
 				投稿者：<a href="<?php  print $this->url->method_url('create_id/'.$row['create_id']); ?>">あああ</a><br>
+			</td>
+			<td class="other_td">
 				投稿日時：<?php print $row['create_datetime'] ?><br>
 				投稿状況：<a href="<?php  print $this->url->method_url('state/public'); ?>">公開</a>
 			</td>
@@ -51,21 +55,8 @@
 	<div class="pageing_block" targ="<?php  print $this->url->method_url('page/<num>');?>"></div>
 </div>
 
-<?php $this->html->js(); ?>
 <script>
-	$(function() {
-		/**
-		 * http://flaviusmatis.github.com/simplePagination.js/
-		 */
-		$('.pageing_block').pagination({
-			items: <?php print $this->BlogModel->itemCount; ?>,
-			itemsOnPage: <?php print $this->BlogModel->pageLimit; ?>,
-			cssStyle: 'light-theme',
-			currentPage :<?php print $this->BlogModel->nowPage; ?>,
-			onPageClick:function(page,e){
-				var targUrl = $('.pageing_block').attr('targ').replace('<num>',page);
-				location.href = targUrl;
-			}
-		});
-	});
+	itemCount = <?php print $this->BlogModel->itemCount; ?>;
+	pageLimit = <?php print $this->BlogModel->pageLimit; ?>;
+	nowPage = <?php print $this->BlogModel->nowPage; ?>;
 </script>

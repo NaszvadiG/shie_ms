@@ -21,7 +21,12 @@ class Url{
 		//ドキュメントルート(/)からシステムルートまでのパスを設定
 		$this->rootUrl = str_replace('index.php','',$_SERVER['SCRIPT_NAME']);
 		//httpから始まる絶対URL　http://localhost/shie_ms/
-		$this->fullUrl = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$this->rootUrl;
+		if(array_key_exists('REQUEST_SCHEME',$_SERVER)){
+			$mes = $_SERVER['REQUEST_SCHEME'];
+		}else{
+			$mes = 'http';
+		}
+		$this->fullUrl = $mes.'://'.$_SERVER['SERVER_NAME'].$this->rootUrl;
 	}
 
 	/**
