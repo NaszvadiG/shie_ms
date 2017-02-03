@@ -1,162 +1,7 @@
 @charset "UTF-8";
-/**************************************************
-コンテンツ部分の設定
-***************************************************/
-/* line 4, ../scss/style/_common.scss */
-#page-wrapper {
-  padding-bottom: 80px;
-}
-
-/* line 7, ../scss/style/_common.scss */
-#flashMessage {
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  color: #31708f;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
-}
-
-/**************************************************
-フッタの設定
-***************************************************/
-/* line 21, ../scss/style/_common.scss */
-footer p#footer_copy {
-  padding: 40px 0;
-  text-align: center;
-}
-/* line 24, ../scss/style/_common.scss */
-footer p#footer_copy small {
-  color: #888;
-  font-weight: bold;
-}
-
-/**************************************************
-一覧画面の設定
-***************************************************/
-/* line 4, ../scss/style/_message_list.scss */
-#massage_list_hidden_flg {
-  float: left;
-  background: #f8f8f8;
-  padding: 10px 20px;
-  border-radius: 10px;
-}
-/* line 10, ../scss/style/_message_list.scss */
-#massage_list_hidden_flg label {
-  margin-bottom: 0;
-}
-/* line 12, ../scss/style/_message_list.scss */
-#massage_list_hidden_flg label input {
-  position: relative;
-  top: 1px;
-  margin-right: 10px;
-}
-
-/* line 21, ../scss/style/_message_list.scss */
-#message_table table a {
-  color: #333;
-  display: block;
-}
-/* line 26, ../scss/style/_message_list.scss */
-#message_table table tr.comp td {
-  background: #cccccc;
-}
-
-/**************************************************
-新規作成画面の設定
-***************************************************/
-/* line 4, ../scss/style/_input_screen.scss */
-#input_form_block {
-  padding-left: 10px;
-}
-
-/* line 8, ../scss/style/_input_screen.scss */
-#input_form_dl dt.err_input {
-  color: #a94442;
-}
-/* line 12, ../scss/style/_input_screen.scss */
-#input_form_dl input[type="text"].err_input,
-#input_form_dl select.err_input,
-#input_form_dl textarea.err_input {
-  border-color: #a94442;
-}
-/* line 18, ../scss/style/_input_screen.scss */
-#input_form_dl .radio_warp .err_input {
-  color: #a94442;
-}
-/* line 21, ../scss/style/_input_screen.scss */
-#input_form_dl .radio_warp .radio {
-  display: inline-block;
-  margin: 0 10px 5px;
-}
-/* line 26, ../scss/style/_input_screen.scss */
-#input_form_dl .radio_warp .radio input[type="radio"] {
-  position: static;
-  margin-left: 0;
-}
-/* line 30, ../scss/style/_input_screen.scss */
-#input_form_dl .radio_warp .radio label {
-  padding-left: 10px;
-}
-/* line 38, ../scss/style/_input_screen.scss */
-#input_form_dl dd {
-  margin: 5px 0;
-}
-/* line 40, ../scss/style/_input_screen.scss */
-#input_form_dl dd p.err {
-  padding-top: 5px;
-  margin-left: 10px;
-}
-
-@media only screen and (min-width: 992px) {
-  /* line 46, ../scss/style/_input_screen.scss */
-  .input_form_dl_r {
-    padding-left: 20px;
-  }
-}
-
-/* line 52, ../scss/style/_input_screen.scss */
-.button_area input[type="button"],
-.button_area input[type="submit"] {
-  margin-right: 10px;
-}
-
-/**************************************************
-詳細画面の設定
-***************************************************/
-/* line 60, ../scss/style/_input_screen.scss */
-.msg_bloc {
-  margin-top: 40px;
-}
-/* line 62, ../scss/style/_input_screen.scss */
-.msg_bloc h3 {
-  margin-top: 0;
-}
-/* line 65, ../scss/style/_input_screen.scss */
-.msg_bloc .msg_unit {
-  margin-left: 20px;
-  margin-bottom: 20px;
-}
-/* line 68, ../scss/style/_input_screen.scss */
-.msg_bloc .msg_unit label {
-  margin-bottom: 0;
-}
-/* line 71, ../scss/style/_input_screen.scss */
-.msg_bloc .msg_unit p {
-  margin-left: 10px;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-}
-
-@media only screen and (min-width: 992px) {
-  /* line 80, ../scss/style/_input_screen.scss */
-  #input_form_block .rep_message_fixed {
-    position: fixed;
-    top: 10px;
-    margin-left: 48%;
-  }
+/* line 16, ../scss/style.scss */
+body {
+  font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
 }
 
 /****************************************************************************************
@@ -306,4 +151,34 @@ ul li {
 /* line 32, ../scss/style/_custom.scss */
 .font30 {
   font-size: 3em;
+}
+
+/* line 2, ../scss/style/_blog_index.scss */
+#post_list_table td {
+  height: 60px;
+}
+/* line 6, ../scss/style/_blog_index.scss */
+#post_list_table td.check_td input {
+  position: relative;
+  margin-top: 16px;
+}
+/* line 11, ../scss/style/_blog_index.scss */
+#post_list_table td.title_td {
+  width: 35%;
+}
+/* line 14, ../scss/style/_blog_index.scss */
+#post_list_table td.other_td {
+  width: 20%;
+  font-size: 0.8em;
+}
+/* line 18, ../scss/style/_blog_index.scss */
+#post_list_table p.title_str {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+/* line 23, ../scss/style/_blog_index.scss */
+#post_list_table div.post_edit_bt_bloc {
+  display: none;
+  float: left;
+  font-size: 0.8em;
 }

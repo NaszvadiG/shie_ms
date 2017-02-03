@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class AdminController extends MY_Controller {
 	var $showType = 'admin';	//views内のフォルダを指定する。
 	var $name = '';
-	var $js_admin = array('plugin/jquery.min','plugin/metisMenu.min','plugin/bootstrap','plugin/jquery.cookie','plugin/select2','plugin/sb-admin-2','plugin/sCollapse');
+	var $js_admin = array('plugin/jquery.min','plugin/bootstrap','plugin/metisMenu.min','plugin/jquery.cookie','plugin/select2','plugin/sb-admin-2','plugin/sCollapse');
 	var $css_admin = array('plugin/bootstrap','plugin/sb-admin-2','plugin/font-awesome.min','plugin/metisMenu.min','style');
 
 

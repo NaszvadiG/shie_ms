@@ -24,18 +24,18 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.html">AlloraWiki 管理画面</a>
+				<a class="navbar-brand" href="<?php print $this->url->site_url('admin/dashbord'); ?>">AlloraWiki 管理画面</a>
 			</div>
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-				<li class="dropdown">
+				<li class="">
 					<a class=""  href="<?php print $this->url->site_url(); ?>" target="_brank">サイトを表示</a>
 					<!-- /.dropdown-user -->
 				</li>
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+						<i class="fa fa-user fa-fw"></i><i class="fa fa-caret-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-user">
 						<li><a href="<?php print $this->url->site_url('admin/auth/edit_user/'.$this->user->id); ?>"><i class="fa fa-user fa-fw"></i> プロフィール</a></li>
@@ -51,10 +51,10 @@
 			<!-- /.navbar-top-links -->
 
 			<div class="navbar-default sidebar" role="navigation">
-				<div class="sidebar-nav navbar-collapse">
+				<div class="sidebar-nav navbar-collapse collapse"">
 					<ul class="nav" id="side-menu">
 						<li>
-							<a href="<?php print $this->url->site_url('admin/blog'); ?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+							<a href="<?php print $this->url->site_url('admin/dashbord'); ?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
 						</li>
 						<li>
 							<a href="#"><i class="fa  fa-list-alt fa-fw"></i>ブログ<span class="fa arrow"></span></a>
@@ -141,3 +141,38 @@
 			</div>
 			<!-- /.row -->
 			<div id="content" class="row">
+				<?php print $this->data['content']; ?>
+			</div>
+			<!-- /.row -->
+		</div>
+		<!--  / #page-wrapper -->
+	</div>
+	<!-- /#wrapper -->
+	<?php $this->html->js(); ?>
+	<!-- <script src="[rooturl]theme/vender/highlight/highlight.pack.js"></script> -->
+	<script>
+		$(function() {
+			//かっこ良いセレクトを実行
+			$(".select2").select2();
+			//アコーディオンプラグイン＆状態cookie保存
+			$('.sCollapse').sCollapse();
+
+			// #で始まるアンカーをクリックした場合に処理
+			// $('a[href^="#"]').click(function() {
+			// 	// スクロールの速度
+			// 		var speed = 400; // ミリ秒
+			// 	// アンカーの値取得
+			// 	var href= $(this).attr("href");
+			// 	// 移動先を取得
+			// 	var target = $(href == "#" || href == "" ? 'html' : href);
+			// 	// 移動先を取得を数値で取得
+			// 	var position = target.offset().top;
+			// 	// スムーススクロール
+			// 	$('body,html').animate({scrollTop:position}, speed, 'swing');
+			// 	return false;
+			// });
+		});
+	</script>
+</body>
+
+</html>

@@ -7,6 +7,7 @@ class MY_Controller extends CI_Controller {
 	var $showType = 'front';	//views内のフォルダを指定する。
 	var $js_ori =array();
 	var $css_ori =array();
+	var $title ='';
 	/**
 	 * viewsフォルダ内の
 	 * 	$this->showType/$this->/_renderメソッド引数で指定する。
@@ -35,7 +36,8 @@ class MY_Controller extends CI_Controller {
 	public function _render($view)
 	{
 		$viewFile = $this->showType.'/'.$this->name.'/'.$view;
-		$this->load->view($viewFile, $this->data);
+		$this->data['content'] = $this->load->view($viewFile, $this->data,TRUE);
+		$this->load->view($this->showType."/element/layout", $this->data);
 	}
 
 	/**
