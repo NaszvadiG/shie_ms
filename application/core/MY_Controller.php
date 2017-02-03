@@ -21,6 +21,7 @@ class MY_Controller extends CI_Controller {
 		$this->url->setRouterVal($this->showType,$this->router->fetch_class(),$this->router->fetch_method());
 		//htmlライブラリに情報を送る
 		$this->_setHtmlLibrary();
+		$this->elementPath = "{$this->showType}/element/";
 	}
 
 
@@ -63,5 +64,10 @@ class MY_Controller extends CI_Controller {
 		if(isset($this->css)){
 			$this->html->setCss($this->css);
 		}
+	}
+
+	public function _getElement($filePath){
+
+		// eval(VIEWPATH."{$this->showType}/element/{$filePath}.php");
 	}
 }
