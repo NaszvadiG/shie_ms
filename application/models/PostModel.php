@@ -13,11 +13,12 @@ class PostModel extends CI_Model
 	var $nowPage = 1;
 	var $pageLimit ='20';
 	var $itemCount = 0;
+	var $postTypeId = 0;
 
 	public function __construct()
 	{
 		parent::__construct();
-
+		$this->user = $this->ion_auth->user()->row();
 		//検索条件初期条件を指定
 		$this->condition_ori = array(
 			'id' => '',
@@ -32,6 +33,20 @@ class PostModel extends CI_Model
 			'category_id' =>'',
 			'category_del_flg' =>'0',
 			);
+
+		//$this->postの初期化
+		// $this->post[0] = array(
+		// 	'id' => '',
+		// 	'post_type_id' => $this->postTypeId,
+		// 	'title' => '',
+		// 	'content' => '',
+		// 	'state' => 'draft',
+		// 	'update_id' =>'',
+		// 	'create_id' =>$this->user->id,
+		// 	'create_datetime' =>'',
+		// 	'del_flg' =>0,
+		// 	'category' =>array(),
+		// 	);
 	}
 
 	/**

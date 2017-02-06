@@ -8,6 +8,8 @@ class MY_Controller extends CI_Controller {
 	var $js_ori =array();
 	var $css_ori =array();
 	var $title ='';
+	var $user = array();
+
 	/**
 	 * viewsフォルダ内の
 	 * 	$this->showType/$this->/_renderメソッド引数で指定する。
@@ -17,6 +19,8 @@ class MY_Controller extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		//ユーザー情報を取得
+		$this->user = $this->ion_auth->user()->row();
 		// something
 		//Urlライブラリにshowタイプとコントローラーとメソッド情報を送る。
 		$this->url->setRouterVal($this->showType,$this->router->fetch_class(),$this->router->fetch_method());

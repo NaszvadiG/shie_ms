@@ -97,7 +97,7 @@ class Url{
 		if(empty($type)){
 			$type = $this->showType;
 		}
-		return $this->view_url("{$type}/js/{$url}");
+		return $this->view_url("{$type}/js/{$url}.js");
 	}
 
 	/**
@@ -112,7 +112,7 @@ class Url{
 		if(empty($type)){
 			$type = $this->showType;
 		}
-		return $this->view_url("{$type}/css/{$url}");
+		return $this->view_url("{$type}/css/{$url}.css");
 	}
 }
 

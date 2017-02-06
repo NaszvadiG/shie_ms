@@ -11,7 +11,8 @@
 			defaultState: 'op', //デフォルトで開く。　空白 or cl　は閉じる
 			cookie:{
 				saveDay:10	//クッキー保存期間　日数で指定
-			}
+			},
+			time:500
 		},
 		param: {
 			viewPath: '', //urlpath
@@ -61,12 +62,12 @@
 				//アイコンのhtmlをオプションから取得
 				iconHtml = sCollapseCont.option.icon.closeIcon;
 				nextState = sCollapseCont.param.stateId.close;
-				targDom.slideUp(500);
+				targDom.slideUp(sCollapseCont.option.time);
 			} else {
 				//今閉じてたら。開く。
 				iconHtml = sCollapseCont.option.icon.openIcon;
 				nextState = sCollapseCont.param.stateId.open;
-				targDom.slideDown(500);
+				targDom.slideDown(sCollapseCont.option.time);
 			}
 			//クラスを整理
 			targDom.removeClass(state);

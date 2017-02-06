@@ -35,7 +35,7 @@ class Html{
 		}
 		if(array_key_exists($showType,$this->js) === TRUE){
 			foreach($this->js[$showType] as $js){
-				print '<script type="text/javascript" src="'.$this->Ci->url->js_url($js.'.js').'"></script>'."\n";
+				print '<script type="text/javascript" src="'.$this->Ci->url->js_url($js).'"></script>'."\n";
 			}
 		}
 	}
@@ -46,7 +46,7 @@ class Html{
 		}
 		if(array_key_exists($showType,$this->css) === TRUE){
 			foreach($this->css[$showType] as $css){
-				print '<link type="text/css" rel="stylesheet" href="'.$this->Ci->url->css_url($css.'.css').'"/>'."\n";
+				print '<link type="text/css" rel="stylesheet" href="'.$this->Ci->url->css_url($css).'"/>'."\n";
 			}
 		}
 	}
