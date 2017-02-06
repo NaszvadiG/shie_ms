@@ -24,7 +24,7 @@ class PostModel extends CI_Model
 			'post_type_id' => '',
 			'title' => '',
 			'content' => '',
-			'state' => 'public',
+			'state' => '',
 			'update_id' =>'',
 			'create_id' =>'',
 			'create_datetime' =>'',
@@ -34,6 +34,12 @@ class PostModel extends CI_Model
 			);
 	}
 
+	/**
+	 * 検索条件を設定する。
+	 * pageの場合はLimit句に入れないといけないので、Limit句を作成後検索条件から削除する。
+	 * それ以外の条件は$this->condition_ori(検索初期値)と引数の検索値をマージしてWHERE句を作成する。
+	 * @param [type] $condition [description]
+	 */
 	public function setCondition($condition){
 		//検索条件にページ指定が有ったら、表示ページに入れて、
 		//検索条件から削除
@@ -55,19 +61,30 @@ class PostModel extends CI_Model
 			$this->offset = ($this->pageLimit * ($this->nowPage-1))-1;
 		}
 	}
+
+	/**
+	 * 検索結果の結果数を$this->itemCountに代入する
+	 */
 	public function setItemCount(){
 		$this->db
 		->select('COUNT(*)',FALSE)
 		->group_by('posts.id');
+		//SELECTとLIMIT以外のFROMとJOINは共通関数で作成して、結果を返す。
 		$query = $this->_doPostGetSqlQuery();
+		//件数を代入
 		$this->itemCount = $query->num_rows();
 	}
 
+	/**
+	 * 検索結果を$this->postに代入する。
+	 * @param  [ary] $condition [array('検索カラム名：物理'=>'検索値')]
+	 */
 	public function search($condition = NULL){
 		if(!is_null($condition)){
 		//検索条件設定
 			$this->setCondition($condition);
 		}
+
 		//SQL作成とSELECT文の実行
 		$select = array(
 			'posts.id',
@@ -85,10 +102,14 @@ class PostModel extends CI_Model
 			'categorys.parent_id',
 			'categorys.del_flg AS category_del_flg',
 			);
+		//SELECTとLIMIT句だけ先に作る。
 		$this->db
 		->select($select)
 		->limit($this->pageLimit,$this->offset);
+
+		//SELECTとLIMIT以外のFROMとJOINは共通関数で作成して、結果を返す。
 		$postQuery =  $this->_doPostGetSqlQuery();
+
 		//取得したデータの整理
 		foreach($postQuery->result_array() as $row){
 			//記事情報の取得と整理
@@ -116,12 +137,18 @@ class PostModel extends CI_Model
 					'del_flg' => $row['category_del_flg'],
 					);
 			}
+			//END　if
 		}
+		//　END foreach
 	}
+	//END function
 
 	/***********************************************************************************************/
 	/**　　　　以下　プライベートメソッド　　　　**/
 	/***********************************************************************************************/
+	/**
+	 * 共通のFROM・JOIN句を作成して結果を返す
+	 */
 	private function _doPostGetSqlQuery(){
 		$query = $this->db
 		->from('posts')
@@ -130,6 +157,12 @@ class PostModel extends CI_Model
 		->get();
 		return $query;
 	}
+
+	/**
+	 * 検索配列のkeyによってWHERE句の作り方を変得ながらWHERE句を作成する。
+	 * @param [str] $key [検索対象カラム名：物理名]
+	 * @param [str] $val [検索条件]
+	 */
 	private function _setSearchSqlWhere($key,$val){
 		switch($key){
 			case 'id':

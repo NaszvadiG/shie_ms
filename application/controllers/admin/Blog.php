@@ -35,8 +35,14 @@ class Blog extends AdminController {
 
 	}
 
+	/**
+	 * 記事詳細
+	 * @param  [int] $postId [記事ID]
+	 */
 	function edit($postId){
-
+		$this->BlogModel->search(array('id'=>$postId));
+		var_dump($this->BlogModel->post);
+		
 	}
 	function create(){
 
