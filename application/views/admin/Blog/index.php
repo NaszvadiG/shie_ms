@@ -43,7 +43,7 @@
 				<?php } ?>
 			</td>
 			<td class="create_td">
-				投稿者：<a href="<?php  print $this->url->method_url('create_id/'.$row['create_id']); ?>">あああ</a><br>
+				投稿者：<a href="<?php  print $this->url->method_url('create_id/'.$row['create_id']); ?>"><?php print $row['user']; ?></a><br>
 			</td>
 			<td class="other_td">
 				投稿日時：<?php print $row['create_datetime'] ?><br>

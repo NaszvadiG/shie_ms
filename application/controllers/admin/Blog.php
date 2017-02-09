@@ -42,13 +42,14 @@ class Blog extends AdminController {
 	function edit($postId){
 		//コンテンツ情報の取得
 		$this->BlogModel->search(array('id'=>$postId));
-		$this->data['post'] = $this->BlogModel->post;
-
+		$this->data['post'] = array_shift($this->BlogModel->post);
+		var_dump($this->data['post']);
 		//コンテンツ部分をwysiwyg化する。
 		//タイトル部分をinput化する。
 		//カテゴリ選択・保存部分を読み込む
 		//保存ブロックを作成する。
 		$this->html->setJs(array('plugin/jquery.cookie','plugin/sCollapse','blog/content'),'front');
+		$this->html->setCss(array('style'),'front');
 		$this->data['adminBlock'] = $this->load->view("admin/{$this->name}/contentAdminBlock", $this->data,true);
 
 		//htmlライブラリに表示セグメントを送る。
@@ -60,6 +61,7 @@ class Blog extends AdminController {
 		//公開側の詳細ページを表示する。
 		$this->load->view("front/{$this->name}/content", $this->data);
 	}
+
 	function create(){
 
 	}

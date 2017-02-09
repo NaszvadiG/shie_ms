@@ -115,7 +115,8 @@ class PostModel extends CI_Model
 			'categorys.category_slug',
 			'categorys.category_show',
 			'categorys.parent_id',
-			'categorys.del_flg AS category_del_flg',
+			'categorys.del_flg AS category_del_flg,',
+			'users.first_name'
 			);
 		//SELECTとLIMIT句だけ先に作る。
 		$this->db
@@ -124,7 +125,6 @@ class PostModel extends CI_Model
 
 		//SELECTとLIMIT以外のFROMとJOINは共通関数で作成して、結果を返す。
 		$postQuery =  $this->_doPostGetSqlQuery();
-
 		//取得したデータの整理
 		foreach($postQuery->result_array() as $row){
 			//記事情報の取得と整理
@@ -139,6 +139,7 @@ class PostModel extends CI_Model
 					'create_id' =>$row['create_id'],
 					'create_datetime' =>$row['create_datetime'],
 					'del_flg' =>$row['del_flg'],
+					'user' =>$row['first_name'],
 					'category' =>array(),
 					);
 			}
@@ -169,6 +170,7 @@ class PostModel extends CI_Model
 		->from('posts')
 		->join('post_categorys','posts.id = post_categorys.post_id','left')
 		->join('categorys','post_categorys.category_id = categorys.id','left')
+		->join('users','posts.create_id = users.id','left')
 		->get();
 		return $query;
 	}
