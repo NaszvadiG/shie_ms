@@ -182,3 +182,8 @@ ul li {
   float: left;
   font-size: 0.8em;
 }
+
+/* line 3, ../scss/style/_auth_index.scss */
+#user_list td.to_user_detail a {
+  color: #666;
+}

@@ -35,13 +35,23 @@ class MY_Controller extends CI_Controller {
 	 * viewsフォルダ内の
 	 * $this->showType/$this->name/_renderメソッド引数($view)で指定する。
 	 * @param  [str]  $view       viewsフォルダ内のviewファイルを指定する。
+	 * @param  [str]  $layoutBool = TRUE       レイアウトファイルに表示するかどうかの真偽値
+	 * @param  [str]  $layoutFile = NULL       レイアウトファイルの名を指定する場合は使用する。
 	 * @return [type]              [description]
 	 */
-	public function _render($view)
+	public function _render($view,$layoutBool = TRUE,$layoutFile=NULL)
 	{
 		$viewFile = $this->showType.'/'.$this->name.'/'.$view;
 		$this->data['content'] = $this->load->view($viewFile, $this->data,TRUE);
-		$this->load->view($this->showType."/element/layout", $this->data);
+		if($layoutBool === FALSE){
+			print $this->data['content'];
+		}else{
+			if(is_null($layoutFile)){
+				$layoutFile = "layout";
+			}
+			$this->load->view($this->showType."/element/".$layoutFile, $this->data);
+		}
+
 	}
 
 	/**

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017 年 2 朁E03 日 14:54
+-- Generation Time: 2017 年 2 朁E10 日 10:24
 -- サーバのバージョン： 10.1.16-MariaDB
 -- PHP Version: 5.5.38
 
@@ -205,7 +205,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1486127148, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1486717024, 1, 'Admin', 'istrator', 'ADMIN', '0'),
 (2, '::1', 'shiimoto@allora-inc.jp', '$2y$08$53PDzOsIPnZRoKjYFZ1kR.yooFQzak4a5JvIwNn51Py5CsNjFgro.', NULL, 'shiimoto@allora-inc.jp', NULL, NULL, NULL, NULL, 1484815962, NULL, 1, 'a', 'a', 'a', '668860007');
 
 -- --------------------------------------------------------

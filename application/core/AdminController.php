@@ -18,9 +18,11 @@ class AdminController extends MY_Controller {
 	{
 		parent::__construct();
 		// something
-		//ログインしてなければ、ログイン画面に遷移
-		if (!$this->ion_auth->logged_in()){
-			redirect('admin/auth/login', 'refresh');
+		//ログインしてなければ、ログイン画面に遷移 authコントローラーのloginアクション以外の時のみ
+		if($this->router->fetch_class() != 'auth' && $this->router->fetch_method() != 'login'){
+			if (!$this->ion_auth->logged_in()){
+				redirect('admin/auth/login', 'refresh');
+			}
 		}
 		$this->user = $this->ion_auth->user()->row();
 	}

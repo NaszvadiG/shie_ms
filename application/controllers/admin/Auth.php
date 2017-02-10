@@ -1,6 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Auth extends CI_Controller {
+class Auth extends AdminController {
+	var $name = 'Auth';
+
 
 	public function __construct()
 	{
@@ -17,13 +19,8 @@ class Auth extends CI_Controller {
 	// redirect if needed, otherwise display the user list
 	public function index()
 	{
-
-		if (!$this->ion_auth->logged_in())
-		{
-			// redirect them to the login page
-			redirect('admin/auth/login', 'refresh');
-		}
-		elseif (!$this->ion_auth->is_admin()) // remove this elseif if you want to enable this for non-admins
+		$this->title = 'ユーザー一覧';
+		if (!$this->ion_auth->is_admin()) // remove this elseif if you want to enable this for non-admins
 		{
 			// redirect them to the home page because they must be an administrator to view this
 			return show_error('You must be an administrator to view this page.');
@@ -39,8 +36,7 @@ class Auth extends CI_Controller {
 			{
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
-
-			$this->_render_page('admin/auth/index', $this->data);
+			$this->_render('index');
 		}
 	}
 
@@ -84,12 +80,17 @@ class Auth extends CI_Controller {
 				'id'    => 'identity',
 				'type'  => 'text',
 				'value' => $this->form_validation->set_value('identity'),
+				'class'=>"form-control",
+				'placeholder' =>"メールアドレス",
+				'autofocus'=>true
 			);
 			$this->data['password'] = array('name' => 'password',
 				'id'   => 'password',
 				'type' => 'password',
+				'class'=>"form-control",
+				'placeholder' =>"パスワード"
 			);
-			$this->_render_page('admin/auth/login', $this->data);
+			$this->_render('login',FALSE);
 		}
 	}
 
