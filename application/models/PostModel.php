@@ -63,7 +63,21 @@ class PostModel extends CI_Model
 			unset($condition['page']);
 		}
 		//引数の検索条件を$this->condition_oriと$this->conditionにマージする。
+		if(is_null($condition) ){
+			$condition = array();
+		}
 		$this->condition = array_merge($this->condition_ori,$this->condition,$condition);
+		
+		// public=>公開　draft=>下書き　private =>非公開　trash=>ゴミ箱
+		//公開ステータスだけ別で検索条件作成
+		if($this->condition['state'] !== '*' && mb_strlen($this->condition['state']) == 0){
+			$this->db->where('posts.state != ','trash');
+		}elseif($this->condition['state'] !== '*' && mb_strlen($this->condition['state']) > 0){
+			$this->db->where('posts.state',$this->condition['state']);
+		}
+		unset($condition['state']);
+
+
 		//検索条件設定
 		foreach($this->condition as $key => $val){
 			if($val !== ''){
@@ -95,11 +109,8 @@ class PostModel extends CI_Model
 	 * @param  [ary] $condition [array('検索カラム名：物理'=>'検索値')]
 	 */
 	public function search($condition = NULL){
-		if(!is_null($condition)){
 		//検索条件設定
-			$this->setCondition($condition);
-		}
-
+		$this->setCondition($condition);
 		//SQL作成とSELECT文の実行
 		$select = array(
 			'posts.id',
@@ -142,6 +153,7 @@ class PostModel extends CI_Model
 					'user' =>$row['first_name'],
 					'category' =>array(),
 					);
+
 			}
 			//カテゴリ情報の整理
 			if(!is_null($row['category_id'])){
@@ -159,6 +171,20 @@ class PostModel extends CI_Model
 	}
 	//END function
 
+
+	// public=>公開　draft=>下書き　private =>非公開　trash=>ゴミ箱
+	function getPostStateJpName($state){
+		if($state == 'public'){
+			return '公開';
+		}elseif($state == 'draft'){
+			return '下書き';
+		}elseif($state == 'private'){
+			return '非公開';
+		}elseif($state == 'trash'){
+			return 'ゴミ箱';
+		}
+	}
+
 	/***********************************************************************************************/
 	/**　　　　以下　プライベートメソッド　　　　**/
 	/***********************************************************************************************/
@@ -166,12 +192,13 @@ class PostModel extends CI_Model
 	 * 共通のFROM・JOIN句を作成して結果を返す
 	 */
 	private function _doPostGetSqlQuery(){
-		$query = $this->db
+		$sql = $this->db
 		->from('posts')
 		->join('post_categorys','posts.id = post_categorys.post_id','left')
 		->join('categorys','post_categorys.category_id = categorys.id','left')
 		->join('users','posts.create_id = users.id','left')
-		->get();
+		->get_compiled_select();
+		$query = $this->db->query($sql);
 		return $query;
 	}
 
@@ -184,7 +211,6 @@ class PostModel extends CI_Model
 		switch($key){
 			case 'id':
 			case 'post_type_id':
-			case 'state':
 			case 'update_id':
 			case 'create_id':
 			case 'del_flg':
@@ -204,5 +230,6 @@ class PostModel extends CI_Model
 			->group_end();
 			break;
 		}
+
 	}
 }

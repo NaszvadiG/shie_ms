@@ -29,10 +29,11 @@
 					<?php } ?>
 				</p>
 				<div class="post_edit_bt_bloc">
-					<a href="<?php  print $this->url->controller_url('edit/'.$id); ?>">編集</a>
 					<?php if(isset($this->data['condition']['state']) AND $this->data['condition']['state'] == 'trash'){ ?>
+					<a href="<?php  print $this->url->controller_url('draft/'.$id); ?>">ゴミ箱から出す</a>
 					<a class="text-danger" href="<?php  print $this->url->controller_url('delete/'.$id); ?>">削除</a>
 					<?php }else{ ?>
+					<a href="<?php  print $this->url->controller_url('edit/'.$id); ?>">編集</a>
 					<a class="text-danger" href="<?php  print $this->url->controller_url('trash/'.$id); ?>">ゴミ箱に入れる</a>
 					<?php } ?>
 				</div>
@@ -47,7 +48,10 @@
 			</td>
 			<td class="other_td">
 				投稿日時：<?php print $row['create_datetime'] ?><br>
-				投稿状況：<a href="<?php  print $this->url->method_url('state/public'); ?>">公開</a>
+				投稿状況：
+				<a href="<?php  print $this->url->method_url('state/'.$row['state']); ?>">
+					<?php print $this->BlogModel->getPostStateJpName($row['state']); ?>
+				</a>
 			</td>
 		</tr>
 		<?php } ?>
