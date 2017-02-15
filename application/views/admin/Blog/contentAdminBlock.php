@@ -1,6 +1,6 @@
 
 
-
+<?php print form_open(); ?>
 <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
 <h4>投稿設定</h4>
 <div class="panel panel-default">
@@ -18,14 +18,7 @@
 		カテゴリ
 	</div>
 	<div id="admin_category_select" class="panel-body">
-		<ul>
-			<li>
-				aaa
-				<ul>
-					<li>iiii</li>
-				</ul>
-			</li>
-		</ul>
+		<?php print $categoryHtml; ?>
 	</div>
 </div>
 <div class="panel panel-default">
@@ -37,3 +30,4 @@
 		<button id="save_bt" class="btn">公開</button>
 	</div>
 </div>
+<?php print form_close(); ?>

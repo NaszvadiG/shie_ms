@@ -4,20 +4,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Blog extends AdminController {
 	var $name = 'Blog';
 	var $post_type='blog';
+	var $postTypeId = '';
+	var $postTypeModelName = 'BlogModel';
 	var $title = '記事一覧画面';
 	var $js = array('plugin/jquery.simplePagination','blog/index');
 	var $css = array('plugin/simplePagination');
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model(array('PostModel','BlogModel'));
-		// $this->load->model('BlogModel');
+		$this->load->model(array('PostModel',$this->postTypeModelName,'postTypeModel','categoryModel'));
+		$this->load->helper('form');
+		//ポストタイプを取得
+		$this->postTypeId = $this->postTypeModel->getPostTypeNameToId($this->post_type);
 	}
 
 	/**
 	 * 記事一覧
 	 */
 	function index($sKey = NULL,$sVal =NULL,$sKey2=NULL,$sval2=NULL){
+		$modl = $this->postTypeModelName;
 		$condition = array();
 		if(!is_null($sKey)){
 			$condition[$sKey] = $sVal;
@@ -27,9 +32,9 @@ class Blog extends AdminController {
 		}
 		$this->data['condition'] = $condition;
 		//検索実行
-		$this->BlogModel->setCondition($condition);
-		$this->BlogModel->setItemCount();
-		$this->BlogModel->search();
+		$this->$modl->setCondition($condition);
+		$this->$modl->setItemCount();
+		$this->$modl->search();
 
 		//検索条件を整理
 		
@@ -42,15 +47,21 @@ class Blog extends AdminController {
 	 * @param  [int] $postId [記事ID]
 	 */
 	function edit($postId){
-
+		$modl = $this->postTypeModelName;
 
 		//コンテンツ情報の取得
 		$condition = array(
 			'id'=>$postId,
 			'state' => '*'
 		);
-		$this->BlogModel->search($condition);
-		$this->data['post'] = array_shift($this->BlogModel->post);
+		$this->$modl->search($condition);
+		$this->data['post'] = array_shift($this->$modl->post);
+
+		//全カテゴリ情報をセット
+		$this->categoryModel->setCategoryAry($this->postTypeId);
+		$this->data['category'] = $this->categoryModel->cateAry;
+		//カテゴリ選択部分のHTMLをセット
+		$this->data['categoryHtml'] = $this->categoryModel->getAdminCategoryTreeHtml();
 
 		//保存ブロックを作成する。
 		$this->data['adminBlock'] = $this->load->view("admin/{$this->name}/contentAdminBlock", $this->data,true);

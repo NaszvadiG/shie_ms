@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017 年 2 朁E10 日 10:24
+-- Generation Time: 2017 年 2 朁E15 日 12:26
 -- サーバのバージョン： 10.1.16-MariaDB
 -- PHP Version: 5.5.38
 
@@ -34,6 +34,16 @@ CREATE TABLE `categorys` (
   `parent_id` int(11) DEFAULT NULL,
   `del_flg` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- テーブルのデータのダンプ `categorys`
+--
+
+INSERT INTO `categorys` (`id`, `post_type_id`, `category_slug`, `category_show`, `parent_id`, `del_flg`) VALUES
+(1, 1, 'cate1', 'テストカテゴリ', NULL, 0),
+(2, 1, 'cate2', '表示名', NULL, 0),
+(3, 1, 'cate2', '子供カテゴリ', 2, 0),
+(4, 1, 'aaa', 'テストテストテスト', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -92,7 +102,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `post_type_id`, `title`, `content`, `state`, `update_id`, `create_id`, `create_datetime`, `del_flg`) VALUES
-(1, 1, 'テスト', 'テスト', 'draft', 1, 1, '2017-01-31 00:00:00', 0),
+(1, 1, 'テスト', 'テスト', 'trash', 1, 1, '2017-01-31 00:00:00', 0),
 (2, 1, 'テスト2', 'テスト2', 'public', 1, 1, '2017-01-31 00:00:00', 0),
 (3, 1, 'テスト3', 'テスト3', 'public', 1, 1, '2017-01-31 00:00:00', 0),
 (4, 1, 'テスト4', 'テスト4', 'public', 1, 1, '2017-01-31 00:00:00', 0),
@@ -163,7 +173,7 @@ CREATE TABLE `post_types` (
   `id` int(11) NOT NULL,
   `type_name` varchar(100) NOT NULL,
   `type_name_show` varchar(100) NOT NULL,
-  `categry_flg` int(11) NOT NULL DEFAULT '0',
+  `categry_flg` int(11) NOT NULL DEFAULT '0' COMMENT '0=>不使用　1＝＞使用',
   `del_flg` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -173,6 +183,24 @@ CREATE TABLE `post_types` (
 
 INSERT INTO `post_types` (`id`, `type_name`, `type_name_show`, `categry_flg`, `del_flg`) VALUES
 (1, 'blog', 'ブログ', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `system_setting`
+--
+
+CREATE TABLE `system_setting` (
+  `key` varchar(100) NOT NULL,
+  `val` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- テーブルのデータのダンプ `system_setting`
+--
+
+INSERT INTO `system_setting` (`key`, `val`) VALUES
+('category_depth', '3');
 
 -- --------------------------------------------------------
 
@@ -205,7 +233,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1486717024, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1487148454, 1, 'Admin', 'istrator', 'ADMIN', '0'),
 (2, '::1', 'shiimoto@allora-inc.jp', '$2y$08$53PDzOsIPnZRoKjYFZ1kR.yooFQzak4a5JvIwNn51Py5CsNjFgro.', NULL, 'shiimoto@allora-inc.jp', NULL, NULL, NULL, NULL, 1484815962, NULL, 1, 'a', 'a', 'a', '668860007');
 
 -- --------------------------------------------------------
@@ -276,6 +304,12 @@ ALTER TABLE `post_types`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `system_setting`
+--
+ALTER TABLE `system_setting`
+  ADD PRIMARY KEY (`key`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -298,7 +332,7 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT for table `categorys`
 --
 ALTER TABLE `categorys`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `groups`
 --

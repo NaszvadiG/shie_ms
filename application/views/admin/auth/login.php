@@ -26,7 +26,6 @@
 </head>
 
 <body>
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
@@ -39,10 +38,13 @@
 						echo form_open();
 						?>
 						<fieldset>
+							<p class="text-danger"><?php print $message['root']; ?></p>
 							<div class="form-group">
+								<p class="text-danger"><?php print $message['identity']; ?></p>
 								<?php echo form_input($identity);?>
 							</div>
 							<div class="form-group">
+								<p class="text-danger"><?php print $message['password']; ?></p>
 								<?php echo form_input($password);?>
 							</div>
 							<div class="checkbox">

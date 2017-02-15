@@ -1,5 +1,20 @@
 
 
 body {
-  font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+	font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+}
+
+/*詳細画面*/
+#admin_category_select ul{
+	list-style-type :none;
+	padding-left: 10px;
+}
+#admin_category_select li ul {
+	padding-left: 20px;
+}
+#admin_category_select li input[type=checkbox]{
+	position:relative;
+	position: relative;
+	top: 2px;
+	margin-right:5px;
 }

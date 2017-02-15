@@ -10,6 +10,7 @@
 		グループ作成
 	</a>
 </p>
+
 <table id="user_list" class="table table-striped">
 	<tr>
 		<th><?php echo lang('index_fname_th');?></th>

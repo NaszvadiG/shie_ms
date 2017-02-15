@@ -40,7 +40,7 @@
 			</td>
 			<td class="cate_td">
 				<?php foreach($row['category'] as $cate){ ?>
-				<a href="<?php  print $this->url->method_url('category_id/'.$cate['id']); ?>"><?php print $cate['category_show']; ?></a><br>
+				<a href="<?php  print $this->url->method_url('category_id/'.$cate['id']); ?>"><?php print $cate['show']; ?></a><br>
 				<?php } ?>
 			</td>
 			<td class="create_td">

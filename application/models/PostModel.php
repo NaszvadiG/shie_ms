@@ -126,7 +126,7 @@ class PostModel extends CI_Model
 			'categorys.category_slug',
 			'categorys.category_show',
 			'categorys.parent_id',
-			'categorys.del_flg AS category_del_flg,',
+			'categorys.del_flg AS category_del_flg',
 			'users.first_name'
 			);
 		//SELECTとLIMIT句だけ先に作る。
