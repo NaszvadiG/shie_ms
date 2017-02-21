@@ -60,10 +60,10 @@
 							<a href="#"><i class="fa  fa-list-alt fa-fw"></i>ブログ<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li>
-									<a href="<?php print $this->url->site_url('admin/blog'); ?>">一覧</a>
+									<a href="<?php print $this->url->site_url('admin/post/index/blog'); ?>">一覧</a>
 								</li>
 								<li>
-									<a href="<?php print $this->url->site_url('admin/blog/create'); ?>">新規作成</a>
+									<a href="<?php print $this->url->site_url('admin/post/create/blog'); ?>">新規作成</a>
 								</li>
 								<li>
 									<a href="<?php print $this->url->site_url('admin/category/index/blog'); ?>">ブログ-カテゴリ</a>

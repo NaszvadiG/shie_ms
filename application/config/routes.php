@@ -57,4 +57,6 @@ $route['translate_uri_dashes'] = FALSE;
  * adminのみのアクセスはログイン画面へ遷移
  */
 $route['admin'] = 'admin/auth/login';
+// $route['admin/post/(:any)/list'] = 'admin/post/index/$1';
+
 $route['(:any)'] = 'front/$1';
